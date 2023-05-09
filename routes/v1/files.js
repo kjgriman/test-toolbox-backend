@@ -4,7 +4,7 @@ const router = express.Router()
 
 /**
  * @openapi
- * /api/v1/files:
+ * /api/v1/files/list:
  *   get:
  *     tags:
  *       - files
@@ -24,7 +24,7 @@ const router = express.Router()
  *                   example:
  *                     files: ["test1.csv","test2.csv","test3.csv","test18.csv","test4.csv","test5.csv","test6.csv","test9.csv","test15.csv"]
  */
-router.get('/files', files)
+router.get('/files/list', files)
 
 /**
  * @openapi
@@ -80,5 +80,36 @@ router.get('/file/:name', files)
  *                     files: [{"file": "test1.csv"},{"file": "test2.csv","lines":[{"text":"jcYKuddlKLs","number":"929172958","hex":"c6f8ef8e501a4cf08a2c3169b390c9c7"},{"text":"KGNkAyevqrBdHLotykGLnflTXqbySQBA","number":"75","hex":"5ca85e5e9204b9320a790a35e05ee2e6"}]},]
  */
 router.get('/files/data', files)
+
+/**
+ * @openapi
+ * /api/v1/files/data?fileName :
+ *   get:
+ *     tags:
+ *       - files data formarter filter by nameFile
+ *     operationId: getFilesFilterByName
+ *     parameters:
+ *       - name: nameFile
+ *         in: query
+ *         description: name of document to return details
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: SUCCESS
+ *                 payload:
+ *                   type: array
+ *                   example:
+ *                     files: [{"file": "test1.csv"},{"file": "test2.csv","lines":[{"text":"jcYKuddlKLs","number":"929172958","hex":"c6f8ef8e501a4cf08a2c3169b390c9c7"},{"text":"KGNkAyevqrBdHLotykGLnflTXqbySQBA","number":"75","hex":"5ca85e5e9204b9320a790a35e05ee2e6"}]},]
+ */
 
 module.exports = router

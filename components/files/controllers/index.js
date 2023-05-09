@@ -35,8 +35,14 @@ exports.getFileByNameController = async (req, res) => {
 }
 
 exports.getFilesDataController = async (req, res) => {
+    const {fileName} = req.query
     try {
         let dataResult = await servicesGetFilesData()
+        if (fileName ) {
+            
+            const resultFilter = dataResult.filter(file => file.file == fileName);
+            return  res.json({ payload: resultFilter, status: 'SUCCESS' }).status(200)
+        }
         res.json({ payload: dataResult, status: 'SUCCESS' })
         res.status(200)
     } catch (error) {
